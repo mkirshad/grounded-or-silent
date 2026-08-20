@@ -55,6 +55,22 @@ def _gold_matches_source(gold, source_title):
     return want <= have
 
 
+# Closed-book rows carry refused=None; their refusals are prose. Conservative
+# patterns — only unambiguous decline phrasings count, and only when they appear
+# in the answer's opening (a caveat buried mid-answer is not a refusal).
+_CB_REFUSAL = re.compile(
+    r"(i do not know|i don't know|cannot verify|can't verify|unable to confirm|"
+    r"not confident|do not have (reliable|verified|that) information|"
+    r"نہیں معلوم|معلوم نہیں)",
+    re.I,
+)
+
+
+def _cb_refused(answer):
+    head = (answer or "")[:300]
+    return bool(_CB_REFUSAL.search(head))
+
+
 def load_benchmark(path):
     gold = {}
     with open(path, encoding="utf-8") as fh:
@@ -79,6 +95,8 @@ def score_file(path, gold):
             t = g["type"]
             per_type[t]["n"] += 1
             refused = r.get("refused")
+            if refused is None and r.get("mode") == "cb":
+                refused = _cb_refused(r.get("answer"))
             answerable = g.get("answerable", True)
             if refused is True:
                 per_type[t]["refused"] += 1
