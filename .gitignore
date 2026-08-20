@@ -1,0 +1,3 @@
+papers/*.pdf
+results/*.jsonl
+!results/pilot-run1-summary.md
