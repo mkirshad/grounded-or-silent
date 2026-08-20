@@ -103,6 +103,25 @@ offer co-authorship; (2) ablation flags in run_paklegalqa (CB/BM25/DENSE/
 HYB/ABL-x); (3) full 360-item runs on a corpus snapshot; (4) scoring
 scripts; (5) paper drafting (ask user for sample preprints first).
 
+## 2026-08-21 (incident + correction: credit exhaustion contaminated prod-sol's tail)
+
+- OpenAI credits ran out DURING prod-sol (~row 225 of 360), not after it:
+  embedding calls failed silently, the engine refused everything with empty
+  sources, and the run "completed" looking plausible. Positional analysis
+  exposed it: refusal rate by 60-row window = 10,10,13,19,60,60.
+- **The earlier "32% over-refusal / too silent" reading is RETRACTED as an
+  artifact.** Clean head (225 rows): 84% answered, 25 correct refusals,
+  **over-refusal only 5%** — the system is far better calibrated than the
+  contaminated table suggested.
+- Methods lesson worth a paragraph in the paper: a silent dependency failure
+  produced a plausible-looking calibration collapse; per-position (or
+  per-timestamp) sanity checks belong in any LLM evaluation harness.
+- Surgery: clean head preserved (prod-sol-clean-head.jsonl), 135 suspect ids
+  listed, rerun + merge scripts added (rerun_prodsol_tail.sh, merge_prodsol.py)
+  — tail reruns after the main driver finishes (model must be back on Sol).
+- Live-product side effect of the same outage acknowledged: /ask refused all
+  questions during the window; verified recovered after top-up.
+
 ## 2026-08-20 (late night — ablation harness built and proven)
 
 - Backend commit 578b975: `AIE_EVAL_RETRIEVAL` contextvar (default "prod",
