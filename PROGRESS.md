@@ -58,5 +58,23 @@ reconstructed without any chat history.
 - Quotas: S-REC 47/80 · S-INT 33/60 · C-HOLD 14/50 · C-FACT 16/20 ·
   TIME 13/20 · FALSE 16/20 · UNANS 28/50 · RU 35/60.
 
-**Repo**: this folder became a git repository on 2026-08-20 (see git log for
-everything after this line).
+**Repo**: this folder became a git repository on 2026-08-20, pushed to the
+private GitHub repo mkirshad/grounded-or-silent (see git log for everything
+after this line).
+
+## 2026-08-20 (evening — batch 05, disposition harvester, accounting fix)
+
+- `corpus/harvest_dispositions.py`: regex-harvests explicit disposition
+  sentences from ANY chunk (the last chunk is often just signatures) — 22
+  dispositions in one pass; 14 became C-HOLD golds.
+- Verification wave 4 (18 checks, 16 FOUND): PPC 448/468/511/34, QSO Art 133,
+  Contract 73/124, TPA 52/58, Succession 372, Companies AGM/memorandum,
+  ITO 114, Sales Tax registration, PECA 16/10.
+- batch-05 (69 items): C-HOLD 14, C-FACT 4 (quota complete), S-REC 15,
+  S-INT 8, UNANS 8, TIME 4, FALSE 4 (quota complete), RU 12.
+- **Accounting correction**: the 300 target is the MAIN set; the 60 RU twins
+  are an overlay (360 items total). True position: main 224/300
+  (S-REC 62/80 · S-INT 41/60 · C-HOLD 28/50 · C-FACT 20/20 · TIME 17/20 ·
+  FALSE 20/20 · UNANS 36/50) + RU overlay 47/60.
+- Remaining: 76 main (S-REC 18, S-INT 19, C-HOLD 22, TIME 3, UNANS 14) +
+  13 RU — two more authoring passes.
