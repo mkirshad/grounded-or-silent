@@ -78,3 +78,27 @@ after this line).
   FALSE 20/20 · UNANS 36/50) + RU overlay 47/60.
 - Remaining: 76 main (S-REC 18, S-INT 19, C-HOLD 22, TIME 3, UNANS 14) +
   13 RU — two more authoring passes.
+
+## 2026-08-20 (night — batch 06: AUTHORING COMPLETE)
+
+- Harvest round 2 (`harvest_dispositions_2.py`, ascending ids, used-titles
+  excluded): 26 dispositions → 22 C-HOLD golds (criminal appeals with
+  convictions set aside, a merger petition, service transfers, civil
+  revisions both ways).
+- Verification wave 5: 24/24 FOUND (labour trio — Payment of Wages 1936,
+  Workmen's Compensation 1923, IRA 2012 — plus CNSA 1997, Zakat & Ushr 1980,
+  bailment/agency/guarantee/lease/exchange, habeas 491, s.145, holder in due
+  course, probate, ITO 122, PECA 13-14, TM/copyright infringement).
+- batch-06 (89 items): C-HOLD 22, S-REC 18, TIME 3, S-INT 19, UNANS 14, RU 13.
+- **MILESTONE: PakLegalQA v1 authoring complete — 360 items: main 300/300
+  (S-REC 80, S-INT 60, C-HOLD 50, C-FACT 20, TIME 20, FALSE 20, UNANS 50) +
+  RU overlay 60/60. All ids unique, all twin references valid, every statute
+  gold corpus-checked (5 waves, ~115 checks), every C-HOLD from a read or
+  harvested disposition.**
+- All golds remain `verified: false` until the advocate round (30% per
+  category per the design's annotation protocol).
+
+Next: (1) advocate verification round — user recruits 1–2 Bar contacts,
+offer co-authorship; (2) ablation flags in run_paklegalqa (CB/BM25/DENSE/
+HYB/ABL-x); (3) full 360-item runs on a corpus snapshot; (4) scoring
+scripts; (5) paper drafting (ask user for sample preprints first).
