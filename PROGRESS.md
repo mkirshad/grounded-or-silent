@@ -102,3 +102,24 @@ Next: (1) advocate verification round — user recruits 1–2 Bar contacts,
 offer co-authorship; (2) ablation flags in run_paklegalqa (CB/BM25/DENSE/
 HYB/ABL-x); (3) full 360-item runs on a corpus snapshot; (4) scoring
 scripts; (5) paper drafting (ask user for sample preprints first).
+
+## 2026-08-20 (late night — ablation harness built and proven)
+
+- Backend commit 578b975: `AIE_EVAL_RETRIEVAL` contextvar (default "prod",
+  production never changes) gates three component groups: candidate pools
+  (dense/abl-pools), title affinity (dense/abl-title), keyword+citation
+  rescues incl. deep-read (dense/abl-rescue). Closed-book ("cb") lives in the
+  management command only — no production path can run ungrounded. Regression
+  test asserts dense bypasses rescues and prod uses them. Suite green.
+- BM25/HYB deferred to the scoring phase (offline rank_bm25 over the corpus
+  snapshot; noted in design §4.1 as build-needed).
+- **Mini comparative run (4 diagnostic questions × prod/dense/cb),
+  `results/ablation-mini-*.jsonl` — the paper's story in miniature:**
+  - PROD 4/4: three grounded answers + correct refusal on the SC question.
+  - DENSE loses the citation lookup: "which judge decided 2025 LHC 846"
+    REFUSED (rescue components carry it in prod).
+  - CB: honest "I do not know" on the judge; statute answers plausible from
+    parametric knowledge; but ANSWERS the Panama-case question from memory —
+    exactly the behaviour a corpus-grounded system must not exhibit. UNANS
+    items thus measure grounding DISCIPLINE, not model ignorance — worth a
+    paragraph in the paper.
