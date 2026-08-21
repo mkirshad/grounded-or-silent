@@ -1,3 +1,6 @@
 papers/*.pdf
 results/*.jsonl
 !results/pilot-run1-summary.md
+publishing/node_modules/
+publishing/package*.json
+publishing/paper-pass1.pdf
