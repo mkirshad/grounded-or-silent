@@ -159,3 +159,17 @@ scripts; (5) paper drafting (ask user for sample preprints first).
     exactly the behaviour a corpus-grounded system must not exhibit. UNANS
     items thus measure grounding DISCIPLINE, not model ignorance — worth a
     paragraph in the paper.
+
+## 2026-08-21 (post-publication: per-paper Q&A + finding F7)
+
+- "Ask about THIS paper" built end-to-end: pages pass a document-title prefix,
+  the public API resolves it strictly within published web folders (narrowing
+  only — privacy-tested), retrieval scopes to that document with the deep-read
+  treatment and no library. Live on all six paper pages.
+- **F7 (candidate, v2): the rewrite model REFUSED instead of rewriting** —
+  "please summarize this paper" came back as an apology, the apology became
+  the search text, and retrieval found nothing. Second rewrite-stage failure
+  mode after F1's wrong-jurisdiction injection. Fix: discard empty,
+  essay-length, or refusal-shaped rewrites in favour of the user's words.
+  Verified live on the Sabbath paper page.
+- Repo made PUBLIC; README rewritten as the paper's public landing page.
