@@ -181,3 +181,17 @@ full metadata set (4 additional descriptions, 3 dates, 14 Cites relations,
 dataset supplement link, keywords, references). Site doi_status flipped to
 published. The preprint is now: live on irshados.com, DOI-registered on
 Zenodo, benchmark public on GitHub.
+
+## 2026-08-21 — venue plan (peer review)
+
+- NLLP 2026 checked and MISSED (deadline was extended to 18 Aug; we published
+  21 Aug; the 27 Aug route needs pre-existing ARR reviews).
+- **Active target: JURIX 2026** (Toulouse, 8–10 Dec) — abstract 28 Aug,
+  paper 5 Sep, single-blind, datasets/resources explicitly in scope.
+- Full plan with checklists, deadlines, fallback ladder (long → short →
+  poster → NLLP 2027), and the v2 differentiation list:
+  **`publishing/venue-plan.md`** — that file is the source of truth from now
+  on; tick and date items there.
+- Site side note (same day): homepage now features this paper first (Arabic
+  Sabbath card retired); SW cache bumped to v2 (stale cover fix). LinkedIn
+  announcement drafts delivered (EN + UR), post-not-article decision made.
