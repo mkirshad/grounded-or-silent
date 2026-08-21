@@ -1,0 +1,18 @@
+{
+ "1. Abstract": 3,
+ "2. Introduction": 3,
+ "3. Related Work": 4,
+ "4. The PakLegalQA Benchmark": 5,
+ "4.1 Corpus": 5,
+ "4.2 Question types and construction": 5,
+ "4.3 Gold labels and verification status": 5,
+ "5. System Under Study": 5,
+ "6. Experimental Setup": 6,
+ "7. Results": 6,
+ "7.1 Manual audit": 7,
+ "8. Discussion: Findings from a Deployed System": 7,
+ "9. Limitations": 8,
+ "10. Ethics Statement": 8,
+ "11. AI Assistance Disclosure": 8,
+ "12. References": 8
+}
