@@ -75,11 +75,13 @@ feedback is incorporated. 6–18 month process; do not go there with v1 as-is.
 
 ## Later — derivative works (after JURIX submission, 2026-08-21 idea)
 
-- Course (YouTube free + Udemy paid, one build): "Build and Evaluate a
-  Citation-Grounded AI Assistant — RAG for Legal/Regulated Domains", paper as
-  spine, F1–F7 as lessons, public repo as materials, stats screenshots as
-  evidence slides, credit-exhaustion incident as a lesson. ElevenLabs for
-  lesson narration (Udemy requires AI-voice disclosure; check current policy),
-  user's own voice for course/section intros. Stronger after peer review.
+- **DECIDED 2026-08-21: free YouTube course series (Udemy dropped).**
+  "Build and Evaluate a Citation-Grounded AI Assistant — RAG for
+  Legal/Regulated Domains", paper as spine, F1–F7 as lessons, public repo as
+  materials, stats screenshots as evidence slides, credit-exhaustion incident
+  as a lesson. ElevenLabs narration for lesson bodies; user's own voice for
+  the per-episode on-camera intro. Episodes link to the paper page, DOI, and
+  repo (and to Irshad AI Employee). Build starts after the JURIX submission;
+  Claude writes scripts + slide content from the paper on user's go.
 - LinkedIn long-form article "how the benchmark was built" — after the
   announcement post has run.
