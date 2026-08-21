@@ -103,6 +103,23 @@ offer co-authorship; (2) ablation flags in run_paklegalqa (CB/BM25/DENSE/
 HYB/ABL-x); (3) full 360-item runs on a corpus snapshot; (4) scoring
 scripts; (5) paper drafting (ask user for sample preprints first).
 
+## 2026-08-21 (PUBLISHED on irshados.com)
+
+- Full experiment completed clean: 6 systems × 360 items + 135-item tail
+  rerun; final Table 1 in results/summary.md and the paper.
+- Manual audit (n=24): 87.5% correct, 0 fabricated citations.
+- Paper completed (paper/paper-draft.md v0.2 → site edition), cover art and
+  PDF generated (headless-Chrome pipeline), published as an ebook entry:
+  **https://irshados.com/ebooks/grounded-or-silent-paklegalqa/** (+ paper.pdf,
+  183KB), verified live. DOI 10.5281/zenodo.22037183 printed on paper, page
+  and cover; doi_status "reserved" until Zenodo publish, then flip to
+  "published". Zenodo community "irshados-research" created (logo in
+  publishing/).
+- Remaining user actions: upload paper.pdf to the Zenodo draft and press
+  Publish; make this GitHub repo public (benchmark release is a paper claim);
+  submit record to the irshados-research community; Google Scholar/ORCID
+  claims; announcement.
+
 ## 2026-08-21 (incident + correction: credit exhaustion contaminated prod-sol's tail)
 
 - OpenAI credits ran out DURING prod-sol (~row 225 of 360), not after it:
