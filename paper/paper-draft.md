@@ -9,7 +9,34 @@ DOI: 10.5281/zenodo.22037183 · Preprint
 
 ## Abstract
 
-[Use the abstract from publishing/zenodo-metadata.md, brackets filled.]
+Legal AI tools are known to hallucinate: audits of commercial legal research
+products report fabricated or misgrounded authorities in 17–33% of responses
+(Magesh et al., 2024). Existing legal QA benchmarks cover well-resourced
+jurisdictions; for Pakistan — a mixed common-law system of 240 million people —
+no benchmark spans its statutes and case law. We present PakLegalQA, the first
+citation-grounded question-answering benchmark for Pakistani law: 300 questions
+over 946 federal statutes (Pakistan Code) and 2,503 reported Lahore High Court
+judgments (2022–2026), with gold statute sections and neutral citations, an
+unanswerable subset whose only correct response is a refusal, and a 60-question
+code-switched Roman-Urdu overlay reflecting how users actually type. Using
+PakLegalQA we evaluate a deployed, production grounded-or-refuse RAG system and
+ablations of its retrieval stack against closed-book and vanilla-RAG baselines.
+The production system attains 74.5% gold-source retrieval — 14.5 points above
+vanilla dense retrieval, with title-affinity re-ranking and lexical rescues
+(citation lookup, name matching, deep reading of named judgments) contributing
+roughly 7 and 9 points respectively — while over-refusing on only 5.3% (Sol) to
+0.6% (gpt-4o) of answerable questions. The closed-book baseline refuses just 7
+of 84 unanswerable questions, answering the rest from parametric memory — the
+grounding-discipline gap the benchmark is designed to expose; grounded systems
+refuse or honestly signal insufficiency on the large majority. A 24-item
+stratified manual audit finds 87.5% correct answers and zero fabricated
+citations: the grounded system's failure mode is mis-selection or silence,
+never invention. We additionally document a query-rewrite-stage hallucination
+(the rewrite model injecting a wrong-jurisdiction statute), a failure stage
+named but unmeasured in prior work, and an infrastructure-failure episode that
+masqueraded as a calibration collapse — motivating positional sanity checks in
+LLM evaluation harnesses. The benchmark, harness, and corpus manifest are
+released.
 
 ## 1 · Introduction
 
@@ -170,15 +197,67 @@ the PROD and DENSE outputs [STATUS: pending] complements the automatic layer.
 
 ## 6 · Results
 
-[RESULTS TABLE — from results/summary.md after final merge]
+| System | Answered | Correct refusal (of 84 unans.) | Over-refusal | Gold-source hit | RU twins same-outcome |
+|---|---|---|---|---|---|
+| PROD (Sol) | 84.7% | 36/84 | 5.3% | 74.5% | 52/60 |
+| Closed-book (Sol) | 81.7% | 7/84 | 16.4% | – | 60/60 |
+| PROD (gpt-4o) | 89.7% | 35/84 | 0.6% | 74.5% | 59/60 |
+| DENSE (gpt-4o) | 84.2% | 35/84 | 6.1% | 60.0% | 58/60 |
+| − title affinity (gpt-4o) | 90.3% | 34/84 | 0.3% | 67.3% | 59/60 |
+| − rescues/deep-read (gpt-4o) | 83.6% | 36/84 | 6.4% | 65.8% | 59/60 |
 
-[R1: calibration headline — PROD correct-refusal X/84, over-refusal Y% —
-against CB's 7/84 with 77 parametric answers on unanswerables.]
-[R2: rescue value — PROD vs DENSE answer conversion, citation-lookup class.]
-[R3: ablation deltas.]
-[R4: RU/EN parity table — near-parity after the translation-first rewrite.]
-[R5: model contrast — Sol cautious vs gpt-4o eager, honesty largely preserved
-through explicit insufficiency statements and premise corrections.]
+*Table 1: automatic metrics over all 360 items (2,160 evaluations). "Gold-source
+hit": a required gold source appears among the answer's cited sources.
+"Correct refusal" counts explicit refusals only; grounded non-answers and
+premise corrections — which manual coding shows dominate the remainder on
+unanswerable items — are analysed in §6.4.*
+
+**R1 — Grounding discipline (PROD vs closed-book).** Grounded systems refuse
+34–36 of the 84 unanswerable/false-premise items outright; the closed-book
+baseline refuses 7, answering 77 from parametric memory — including Supreme
+Court holdings, current-affairs facts, and provincial rules outside any
+provided corpus. Notably, closed-book *is* honest where its ignorance is
+self-evident (it declines specific LHC citation lookups); its failure is
+answering questions whose premise requires a corpus it does not have. This is
+the benchmark's central contrast: unanswerable items measure discipline, not
+knowledge.
+
+**R2 — What the retrieval stack buys.** The full stack retrieves a required
+gold source for 74.5% of scorable items against 60.0% for vanilla dense
+retrieval (+14.5 points). Removing title affinity costs 7.2 points of
+gold-source accuracy while *raising* the answer rate slightly — it changes
+what is cited, not whether the system speaks. Removing the lexical rescues
+and deep reading costs 8.7 points of gold-source accuracy and 6.1 points of
+answer rate (≈22 recovered answers), concentrated in the citation-lookup and
+case-holding classes that embeddings cannot serve.
+
+**R3 — Refusal calibration.** Over-refusal on answerable items is 5.3% for
+the production reasoning model and 0.6% for gpt-4o. Per-type analysis places
+the residual over-refusals overwhelmingly in scenario-phrased interpretation
+questions — the class with the weakest gold-source retrieval — indicating the
+remaining silence is retrieval-caused, not policy-caused.
+
+**R4 — Roman-Urdu parity.** After the translation-first rewrite (§7, F4),
+outcome parity between Roman-Urdu twins and their English counterparts is
+59/60 (gpt-4o) and 52/60 (Sol). The benchmark's paired design is what makes
+this measurable at all: every divergent pair is an actionable defect report.
+
+**R5 — Model temperament.** Sol errs toward caution (higher over-refusal,
+slightly lower RU parity); gpt-4o toward helpfulness (near-zero over-refusal,
+softer refusal edge on unanswerables). Manual inspection (§6.4) shows gpt-4o's
+extra "answers" on unanswerable items are largely honest: explicit
+insufficiency statements and implicit premise corrections rather than
+fabrications.
+
+### 6.4 Manual audit
+A stratified 24-item audit of PROD outputs (Magesh-style coding with the §7-F5
+rubric extensions) finds 21/24 (87.5%) correct or better — including four
+grounded non-answers and three implicit premise corrections — and 3/24
+incorrect, all scenario questions where retrieval selected a plausible but
+wrong provision (a sister doctrine, a neighbouring section, a different act).
+**No fabricated citation appears anywhere in the audit**: every cited source
+exists and is quoted faithfully. The grounded system's observed failure mode
+is mis-selection or silence — never invention.
 
 ## 7 · Discussion: Findings from a Deployed System
 
