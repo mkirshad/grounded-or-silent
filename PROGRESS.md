@@ -195,3 +195,13 @@ Zenodo, benchmark public on GitHub.
 - Site side note (same day): homepage now features this paper first (Arabic
   Sabbath card retired); SW cache bumped to v2 (stale cover fix). LinkedIn
   announcement drafts delivered (EN + UR), post-not-article decision made.
+
+## 2026-08-21 — free YouTube course PUBLISHED
+
+- "Grounded or Silent — Build & Evaluate a Citation-Grounded Legal AI" (27:35,
+  39 slides, ElevenLabs narration in 5 parts joined + aligned on break-tag
+  pauses): https://youtu.be/mh6UvNjUoKs — embedded on the paper page.
+  Production folder: F:\Video-Projects\Irshad-AI-Employee\Course-Grounded-or-Silent
+  (spec-driven: build/course_spec.py → slides + transcript → assemble.py).
+- Sabbath Pond Test documentary playlist (8 lectures, PLMJozq9TZux4) embedded
+  on all three Sabbath paper pages (EN/AR/MS) via playlist-aware course card.

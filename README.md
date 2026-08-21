@@ -7,6 +7,7 @@ grounded-or-refuse legal AI system.
 - 📄 **Paper (preprint v1, August 2026):**
   [irshados.com/ebooks/grounded-or-silent-paklegalqa](https://irshados.com/ebooks/grounded-or-silent-paklegalqa/)
   · [PDF](https://irshados.com/ebooks/grounded-or-silent-paklegalqa/paper.pdf)
+- 🎓 **Free video course (27 min):** [youtu.be/mh6UvNjUoKs](https://youtu.be/mh6UvNjUoKs)
 - 🔗 **DOI:** [10.5281/zenodo.22037183](https://doi.org/10.5281/zenodo.22037183)
 - ✍️ **Author:** Muhammad Kashif Irshad (IrshadOS, Lahore, Pakistan) ·
   ORCID [0009-0008-9161-9875](https://orcid.org/0009-0008-9161-9875)
