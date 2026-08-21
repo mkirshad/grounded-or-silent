@@ -173,3 +173,11 @@ scripts; (5) paper drafting (ask user for sample preprints first).
   essay-length, or refusal-shaped rewrites in favour of the user's words.
   Verified live on the Sabbath paper page.
 - Repo made PUBLIC; README rewritten as the paper's public landing page.
+
+## 2026-08-21 — ZENODO PUBLISHED
+
+DOI 10.5281/zenodo.22037183 registered and resolving. Record carries the
+full metadata set (4 additional descriptions, 3 dates, 14 Cites relations,
+dataset supplement link, keywords, references). Site doi_status flipped to
+published. The preprint is now: live on irshados.com, DOI-registered on
+Zenodo, benchmark public on GitHub.
