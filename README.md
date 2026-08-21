@@ -1,80 +1,83 @@
-# Grounded or Silent: Citation-Faithful Legal QA for Pakistani Law
+# Grounded or Silent: Citation-Faithful Legal Question Answering for Pakistani Law
 
-Working folder for the research paper. Product under study: **Irshad AI Employee**
-(production system — 946 Pakistan Code statutes + 2,503 LHC judgments 2022–2026,
-grounded-or-refuse answering with page-cited sources).
+**PakLegalQA** — the first citation-grounded question-answering benchmark for
+Pakistani law — and a refusal-calibration evaluation of a deployed
+grounded-or-refuse legal AI system.
 
-## Planned contributions
-1. **PakLegalQA** — first Pakistani legal QA benchmark (questions + gold statute
-   sections / case citations, English + Roman Urdu subset).
-2. Evaluation of retrieval strategies on it (dense vs hybrid vs title-affinity /
-   category-pool / structure-aware ranking).
-3. Refusal calibration study: when does the system correctly say "the documents
-   don't answer this" vs guess.
-4. Analysis of anonymised production queries from a deployed system.
+- 📄 **Paper (preprint v1, August 2026):**
+  [irshados.com/ebooks/grounded-or-silent-paklegalqa](https://irshados.com/ebooks/grounded-or-silent-paklegalqa/)
+  · [PDF](https://irshados.com/ebooks/grounded-or-silent-paklegalqa/paper.pdf)
+- 🔗 **DOI:** [10.5281/zenodo.22037183](https://doi.org/10.5281/zenodo.22037183)
+- ✍️ **Author:** Muhammad Kashif Irshad (IrshadOS, Lahore, Pakistan) ·
+  ORCID [0009-0008-9161-9875](https://orcid.org/0009-0008-9161-9875)
+- ⚖️ **System under study:** [Irshad AI Employee](https://irshados.com/apps/irshad-ai-employee/) —
+  a deployed grounded-or-refuse RAG service (ask it a legal question at
+  [irshados.com/ask](https://irshados.com/ask))
 
-Target venue: arXiv preprint → NLLP workshop (EMNLP). Step-up: JURIX / ICAIL.
+## The benchmark
 
-## papers/ — reading list (all fetched 2026-08-20, open access)
+360 items over a frozen corpus of **946 federal statutes** (Pakistan Code) and
+**2,503 reported Lahore High Court judgments** (2022–2026):
 
-| File | Cite as | Take from it |
+| Type | Count | Description |
 |---|---|---|
-| 2024-Magesh-Hallucination-Free-legal-tools.pdf | Magesh et al. 2024 (arXiv:2405.20362) | Audit methodology for legal AI tools; headline framing to replicate for Pakistan |
-| 2024-Dahl-Large-Legal-Fictions.pdf | Dahl et al. 2024 (arXiv:2401.01301) | Taxonomy of legal hallucination types — use to classify failures |
-| 2023-Gao-ALCE-citations.pdf | Gao et al. 2023 (arXiv:2305.14627) | Citation precision/recall metrics — scoring "cites the right page" |
-| 2020-Lewis-RAG.pdf | Lewis et al. 2020 (arXiv:2005.11401) | Canonical RAG citation, baseline architecture |
-| 2023-Asai-Self-RAG.pdf | Asai et al. 2023 (arXiv:2310.11511) | Self-reflective retrieval/abstention framing |
-| 2022-Kadavath-Know-What-They-Know.pdf | Kadavath et al. 2022 (arXiv:2207.05221) | Model self-knowledge / calibration for the refusal study |
-| 2023-Guha-LegalBench.pdf | Guha et al. 2023 (arXiv:2308.11462) | Benchmark construction: question sourcing, gold labels, annotation |
-| 2021-Chalkidis-LexGLUE.pdf | Chalkidis et al. 2022 (arXiv:2110.00976) | How legal NLP papers structure task suites |
-| 2020-Khattab-ColBERT.pdf | Khattab & Zaharia 2020 (arXiv:2004.12832) | Dense/late-interaction retrieval baseline |
-| 2023-Li-SAILER-legal-retrieval.pdf | Li et al. 2023 (arXiv:2304.11370) | Structure-aware legal case retrieval — closest prior to our statute-structure problem |
-| 2023-Li-LeCaRDv2.pdf | Li et al. 2024 (arXiv:2310.17609) | Chinese legal case retrieval dataset design (v2; v1 = Ma et al. SIGIR'21, ACM-only) |
-| 2024-COLIEE2024-task1-summary.pdf | COLIEE 2024 task 1 summary | Competition task design + evaluation conventions |
+| S-REC | 80 | Statute recall — punishments, definitions, procedures |
+| S-INT | 60 | Interpretation — real-life scenarios mapped to provisions |
+| C-HOLD | 50 | Case holdings — what a named judgment decided |
+| C-FACT | 20 | Judgment facts — judge, bench, dates |
+| TIME | 20 | Amendment- and currency-sensitive probes |
+| FALSE | 20 | False premises — wrong years, wrong codes, fictional sections |
+| UNANS | 50 | Unanswerable from the corpus — refusal is the only correct output |
+| RU | 60 | Code-switched Roman-Urdu overlay, twinned with English items |
 
-Added by the 2026-08-20 novelty sweep (see design doc §2 for positioning):
+Every statute gold label was verified against the corpus text before being
+recorded; every case-holding label comes from a disposition sentence read in
+the judgment itself. Labels are single-annotator in v1 (stated limitation);
+independent legal review is planned for v2.
 
-| File | Cite as | Why it matters |
-|---|---|---|
-| 2024-Mahmood-LEGAL-UQA-pakistan-constitution.pdf | LEGAL-UQA (arXiv:2410.13013) | CLOSEST prior work: 619 Urdu-English QA pairs from Pakistan's constitution only — must be cited and differentiated prominently |
-| 2026-Chae-SearchFireSafety-statute-QA.pdf | Chae et al. 2026 (arXiv:2604.06173) | Statutory retrieval gap + refusal stress-testing (fire-safety regs) — methodological neighbour |
-| 2026-Butler-Legal-RAG-Bench.pdf | Butler & Butler 2026 (arXiv:2603.01710) | End-to-end legal RAG eval, Victorian Criminal Charge Book |
-| 2024-Joshi-IL-TUR-indian-legal.pdf | IL-TUR (ACL 2024) | Indian legal NLP benchmark family — South Asia is served; our claim is Pakistan-specific |
+## Headline results (automatic metrics, 2,160 evaluations)
 
-Not fetched (paywalled — cite without PDF):
-- Robertson & Zaragoza 2009, "The Probabilistic Relevance Framework: BM25 and
-  Beyond" (Foundations and Trends in IR) — BM25 baseline citation.
-- Ma et al. 2021, LeCaRD v1 (SIGIR '21, ACM) — cite alongside LeCaRDv2.
+| System | Answered | Correct refusal (of 84 unans.) | Over-refusal | Gold-source hit |
+|---|---|---|---|---|
+| PROD (full stack, Sol) | 84.7% | 36/84 | 5.3% | 74.5% |
+| Closed-book (Sol) | 81.7% | 7/84 | 16.4% | – |
+| PROD (gpt-4o) | 89.7% | 35/84 | 0.6% | 74.5% |
+| DENSE / vanilla RAG (gpt-4o) | 84.2% | 35/84 | 6.1% | 60.0% |
+| − title affinity | 90.3% | 34/84 | 0.3% | 67.3% |
+| − rescues/deep-read | 83.6% | 36/84 | 6.4% | 65.8% |
 
-## Progress (2026-08-20)
-- Design doc, harness (`run_paklegalqa`), and corpus manifest v1 done.
-- Pilot (20 q) run; findings F1–F4 fixed in production, F5 = rubric additions.
-- **Benchmark: 137/300 questions authored** (pilot-20 + batch-02 + batch-03),
-  every statute gold checked against corpus text (`corpus/verify_checks*.py`,
-  60 checks across two waves). Confirmed corpus gaps: Court Fees Act 1870
-  (absent) and Limitation Act 1908 First Schedule (missing from ingest).
-  Lesson: title patterns must be fuzzy — "Anti Terrorism Act (ATA),1997" has no
-  hyphen and two questions were misfiled as UNANS before the engine itself
-  corrected the record.
-- Quota progress after batch-04 (202/300 total): S-REC 47/80 · S-INT 33/60 ·
-  C-HOLD 14/50 · C-FACT 16/20 · TIME 13/20 · FALSE 16/20 · UNANS 28/50 ·
-  RU 35/60. Remaining ~98 lean on S-REC (33), C-HOLD (36 — needs more judgment
-  sampling; read chunks[-2] where the last chunk is signature-only), S-INT (27),
-  RU (25), UNANS (22).
-- Batch-04 smoke: TIME-174 (suicide) revealed the ingested PPC REFLECTS the
-  2022 amendment — answer cited Act XXXVII of 2022 with the exact date. The
-  corpus is more current than assumed; amendment-currency probes work.
-- Batch-03 smoke: C-HOLD-102 (maintenance holding) answered exactly per gold;
-  **new RU/EN divergence pair found** — custody question answers in English
-  (S-INT-094) but refuses in Roman Urdu (RU-128), showing per-question RU
-  variance persists after the translation fix. Candidate finding F6.
-- Novelty sweep done (design doc §2): LEGAL-UQA is the closest prior; four
-  defensible novelty claims stand.
+A 24-item stratified manual audit found **87.5% correct answers and zero
+fabricated citations** — the grounded system's failure mode is mis-selection
+or silence, never invention.
 
-## Next steps
-1. Author remaining ~226 questions (statute long tail, more C-HOLD from judgment
-   sampling, production-log-derived items, RU overlay to 60).
-2. Advocate verification round (30% sample per category).
-3. Ablation flags in the harness (CB / BM25 / DENSE / HYB / ABL-x) + full runs.
-4. ChatGPT Research novelty sweep on the design doc (user-side).
-5. Anonymisation protocol for production question logs before any use.
+## Repository layout
+
+| Path | Contents |
+|---|---|
+| `benchmark/` | The 360 PakLegalQA items as JSONL (`all-360.jsonl` = combined) |
+| `corpus/manifest-v1.jsonl` | Frozen corpus manifest: 3,449 documents with SHA-256 checksums, titles, official source URLs |
+| `corpus/*.py` | Gold-label verification and disposition-harvesting scripts (run inside the system's Django shell) |
+| `results/` | Run summaries, the manual-coding sample, and the incident record; per-question outputs regenerate via the harness |
+| `scripts/` | Experiment driver, scoring (`score_runs.py`), tables (`make_tables.py`) |
+| `paper/` | Paper source (markdown) |
+| `publishing/` | PDF/docx build pipeline and Zenodo metadata |
+| `PakLegalQA-design.md` | The benchmark's design document |
+| `PROGRESS.md` | Dated research log (including the findings' discovery order) |
+
+The evaluation harness itself is a management command
+(`run_paklegalqa`) in the evaluated system's backend; ablation switches are
+evaluation-only context flags that production code never sets.
+
+## Citing
+
+> Irshad, Muhammad Kashif. "Grounded or Silent: Citation-Faithful Legal
+> Question Answering for Pakistani Law." IrshadOS Research, 2026.
+> DOI: 10.5281/zenodo.22037183.
+
+## License and AI assistance
+
+Paper and benchmark released under **CC BY 4.0**. Statute and judgment texts
+are not bundled — the manifest carries citations, checksums, and official
+source URLs. This research was conducted and drafted with substantial AI
+assistance (Anthropic's Claude), reviewed throughout by the human author, who
+bears sole responsibility for the content.
